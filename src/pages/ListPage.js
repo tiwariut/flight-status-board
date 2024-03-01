@@ -2,15 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { fetchFlightList } from '../api/api-client';
+import { formatDate } from '../utils/helper';
 
-const List = () => {
+import List from '../components/list/List';
+
+const ListPage = () => {
   const [flights, setFlights] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const flightList = await fetchFlightList();
+      let flightList = await fetchFlightList();
+
+      // Format date before saving
+      flightList = flightList.map((flight) => {
+        return {
+          ...flight,
+          departureTime: formatDate(flight.departureTime)
+        };
+      });
 
       setFlights(flightList);
     };
@@ -26,10 +37,10 @@ const List = () => {
 
   return (
     <div>
-      <h1>List</h1>
-      <button onClick={() => navigateToDetailsPage(1)}>Go to details</button>
+      <h1>List Page</h1>
+      {<List items={flights} handleListItemClick={navigateToDetailsPage} />}
     </div>
   );
 };
 
-export default List;
+export default ListPage;

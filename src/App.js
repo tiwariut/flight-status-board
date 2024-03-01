@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import List from './pages/List';
-import Details from './pages/Details';
+import ListPage from './pages/ListPage';
+import DetailsPage from './pages/DetailsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
-import NotFound from './components/NotFound';
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 
 import './App.css';
 
@@ -14,9 +14,9 @@ const App = () => {
     <>
       <Navbar />
       <Routes>
-        <Route path='/' element={<List />}></Route>
-        <Route path='/details/:id' element={<Details />}></Route>
-        <Route path='*' element={<NotFound />}></Route>
+        <Route path='/' element={<ListPage />}></Route>
+        <Route path='/details/:id' element={<DetailsPage />}></Route>
+        <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
     </>
   );

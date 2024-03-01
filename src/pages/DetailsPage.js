@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { fetchFlightDetails } from '../api/api-client';
 
-const Details = (props) => {
+const DetailsPage = (props) => {
   const [flight, setFlight] = useState(null);
 
   const { id } = useParams();
@@ -22,9 +22,9 @@ const Details = (props) => {
 
   return (
     <div>
-      <h1>Details {id}</h1>
+      <h1>Details Page: {flight.flightNumber}</h1>
     </div>
   );
 };
 
-export default Details;
+export default DetailsPage;
