@@ -1,0 +1,53 @@
+table {
+  width: 100%;
+  text-align: center;
+}
+
+thead > tr > th {
+  font-size: 20px;
+  color: #555;
+  border-bottom: 2px solid #637a9f;
+  background-color: 637a9f;
+}
+
+tbody > tr {
+  cursor: pointer;
+}
+
+tbody > tr > td {
+  padding: 12px 0;
+}
+
+tbody > tr:nth-child(even) {
+  background-color: #dde4ed;
+}
+
+tbody > tr > td:first-child {
+  color: #ffa600;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.indicator {
+  border-radius: 20px;
+  width: 150px;
+  margin: auto;
+  font-weight: 800;
+}
+
+.indicator.success {
+  background: #eaffed;
+  color: #44c738;
+}
+.indicator.danger {
+  background: #ffe9e9;
+  color: #a87979;
+}
+.indicator.primary {
+  background: #e6f2fe;
+  color: #566d9a;
+}
+.indicator.warning {
+  background: #fffad1;
+  color: #b59f67;
+}

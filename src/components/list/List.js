@@ -3,12 +3,14 @@ import ListItem from './ListItem';
 
 import { formatTableHeading } from '../../utils/helper';
 
+import '../../styles/list.css';
+
 const List = (props) => {
   const { items, handleListItemClick } = props;
 
   const _renderTableHeader = () => {
     return Object.keys(items[0]).map((key) => {
-      if (key !== 'id') {
+      if (key !== 'id' && key !== 'className') {
         return <th key={key}>{formatTableHeading(key)}</th>;
       }
     });

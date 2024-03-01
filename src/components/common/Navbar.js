@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import '../../styles/navbar.css';
+
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -10,7 +12,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h2 onClick={navigateToListPage}>Flight Status</h2>
+      <h2 onClick={navigateToListPage}>FLIGHT STATUS</h2>
     </nav>
   );
 };

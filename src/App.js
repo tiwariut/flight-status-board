@@ -5,9 +5,9 @@ import ListPage from './pages/ListPage';
 import DetailsPage from './pages/DetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/common/Navbar';
 
-import './App.css';
+import './styles/global.css';
 
 const App = () => {
   return (

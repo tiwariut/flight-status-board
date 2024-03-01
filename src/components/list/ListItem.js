@@ -5,8 +5,14 @@ const ListItem = (props) => {
 
   const _renderRowData = () => {
     return Object.keys(item).map((key) => {
-      if (key !== 'id') {
-        return <td key={key}>{item[key]}</td>;
+      if (key !== 'id' && key !== 'className') {
+        return (
+          <td key={key}>
+            <div className={key == 'status' && `indicator ${item.className}`}>
+              {item[key]}
+            </div>
+          </td>
+        );
       }
     });
   };
