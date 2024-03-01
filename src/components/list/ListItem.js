@@ -8,7 +8,9 @@ const ListItem = (props) => {
       if (key !== 'id' && key !== 'className') {
         return (
           <td key={key}>
-            <div className={key == 'status' && `indicator ${item.className}`}>
+            <div
+              className={key == 'status' ? `indicator ${item.className}` : ''}
+            >
               {item[key]}
             </div>
           </td>

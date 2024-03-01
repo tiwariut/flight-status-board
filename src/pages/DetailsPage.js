@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { fetchFlightDetails } from '../api/api-client';
+import config from '../config/config';
 
-const DetailsPage = (props) => {
+const { fetchDataIntervalDuration } = config;
+
+const DetailsPage = () => {
   const [flight, setFlight] = useState(null);
 
   const { id } = useParams();
@@ -17,6 +20,10 @@ const DetailsPage = (props) => {
     };
 
     fetchData();
+
+    const intervalId = setInterval(fetchData, fetchDataIntervalDuration);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   if (!flight) return null;

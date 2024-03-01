@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { fetchFlightList } from '../api/api-client';
 import { formatDate } from '../utils/helper';
 import { flightStatus } from '../utils/constants';
+import config from '../config/config';
+
+const { fetchDataIntervalDuration } = config;
 
 import List from '../components/list/List';
 
@@ -29,6 +32,10 @@ const ListPage = () => {
     };
 
     fetchData();
+
+    const intervalId = setInterval(fetchData, fetchDataIntervalDuration);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const navigateToDetailsPage = (id) => {
