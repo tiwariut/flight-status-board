@@ -9,9 +9,9 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <button onClick={navigateToListPage}>Go to list</button>
-    </div>
+    <nav>
+      <h2 onClick={navigateToListPage}>Flight Status</h2>
+    </nav>
   );
 };
 

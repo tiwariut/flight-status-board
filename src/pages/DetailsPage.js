@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { fetchFlightDetails } from '../api/api-client';
 
@@ -7,6 +7,7 @@ const DetailsPage = (props) => {
   const [flight, setFlight] = useState(null);
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +23,10 @@ const DetailsPage = (props) => {
 
   return (
     <div>
-      <h1>Details Page: {flight.flightNumber}</h1>
+      <h3>
+        {flight.airline}: {flight.flightNumber}
+      </h3>
+      <button onClick={() => navigate(-1)}>Go Back</button>
     </div>
   );
 };

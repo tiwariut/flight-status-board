@@ -17,22 +17,20 @@ const List = (props) => {
   if (!items.length) return null;
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>{_renderTableHeader()}</tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <ListItem
-              key={item.id}
-              item={item}
-              handleListItemClick={handleListItemClick}
-            ></ListItem>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <table>
+      <thead>
+        <tr>{_renderTableHeader()}</tr>
+      </thead>
+      <tbody>
+        {items.map((item) => (
+          <ListItem
+            key={item.id}
+            item={item}
+            handleListItemClick={handleListItemClick}
+          ></ListItem>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

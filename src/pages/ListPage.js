@@ -37,7 +37,6 @@ const ListPage = () => {
 
   return (
     <div>
-      <h1>List Page</h1>
       {<List items={flights} handleListItemClick={navigateToDetailsPage} />}
     </div>
   );
