@@ -4,7 +4,8 @@
   "description": "Real-time flight status board",
   "main": "index.js",
   "scripts": {
-    "start": "npx webpack-dev-server --mode development --open --hot"
+    "start": "npx webpack-dev-server --mode development --open --hot",
+    "build": "npx webpack --mode production"
   },
   "keywords": [],
   "author": "",
