@@ -11,4 +11,5 @@ body {
   font-family: 'Poppins', sans-serif;
   line-height: 1.8;
   background-color: #ffffff95;
+  cursor: default;
 }
