@@ -1,4 +1,5 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   // Entry point that indicates where
@@ -30,5 +31,10 @@ module.exports = {
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/dist/',
     filename: 'bundle.js'
+  },
+
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()]
   }
 };
