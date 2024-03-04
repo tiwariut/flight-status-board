@@ -6,31 +6,40 @@ import { formatDate } from '../utils/helper';
 import { flightStatus } from '../utils/constants';
 import config from '../config/config';
 
-const { fetchDataIntervalDuration } = config;
+const { fetchDataIntervalDuration, errorMessageDuration } = config;
 
 import Loader from '../components/common/Loader';
+import Toast from '../components/common/Toast';
 import List from '../components/list/List';
 
 const ListPage = () => {
   const [flights, setFlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      let flightList = await fetchFlightList();
+      let flightListData = await fetchFlightList();
 
-      // Format data
-      flightList = flightList.map((flight) => {
-        return {
-          ...flight,
-          departureTime: formatDate(flight.departureTime),
-          className: flightStatus[flight.status]
-        };
-      });
+      if (flightListData.errorMessage) {
+        setErrorMessage(flightListData.errorMessage);
+        // Clear error after sometime
+        setTimeout(() => setErrorMessage(''), errorMessageDuration);
+      } else {
+        // Format data
+        const formattedFlightList = flightListData.data.map((flight) => {
+          return {
+            ...flight,
+            departureTime: formatDate(flight.departureTime),
+            className: flightStatus[flight.status]
+          };
+        });
 
-      setFlights(flightList);
+        setFlights(formattedFlightList);
+      }
+
       setIsLoading(false);
     };
 
@@ -47,11 +56,12 @@ const ListPage = () => {
 
   if (isLoading) return <Loader />;
 
-  if (!flights.length) return null;
-
   return (
     <div>
-      {<List items={flights} handleListItemClick={navigateToDetailsPage} />}
+      {errorMessage && <Toast message={errorMessage}></Toast>}
+      {flights.length > 0 && (
+        <List items={flights} handleListItemClick={navigateToDetailsPage} />
+      )}
     </div>
   );
 };

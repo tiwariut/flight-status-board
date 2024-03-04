@@ -7,23 +7,31 @@ import config from '../config/config';
 import { flightStatus } from '../utils/constants';
 
 import Loader from '../components/common/Loader';
+import Toast from '../components/common/Toast';
 
 import '../styles/details-page.css';
 
-const { fetchDataIntervalDuration } = config;
+const { fetchDataIntervalDuration, errorMessageDuration } = config;
 
 const DetailsPage = () => {
   const [flight, setFlight] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const flightDetails = await fetchFlightDetails(id);
+      const flightDetailsData = await fetchFlightDetails(id);
+      if (flightDetailsData.errorMessage) {
+        setErrorMessage(flightDetailsData.errorMessage);
+        // Clear error after sometime
+        setTimeout(() => setErrorMessage(''), errorMessageDuration);
+      } else {
+        setFlight(flightDetailsData.data);
+      }
 
-      setFlight(flightDetails);
       setIsLoading(false);
     };
 
@@ -36,34 +44,37 @@ const DetailsPage = () => {
 
   if (isLoading) return <Loader />;
 
-  if (!flight) return null;
-
-  const { airline, departureTime, destination, flightNumber, origin, status } =
-    flight;
-
   return (
-    <div>
-      <div className='header-container'>
-        <div>{airline}</div>
-        <div className='flight-number'>{flightNumber}</div>
-        <div className={`status-text ${flightStatus[status]}`}>{status}</div>
-      </div>
-      <div className='details-container'>
+    <>
+      {errorMessage && <Toast message={errorMessage}></Toast>}
+      {flight && (
         <div>
-          <strong>Departure Time:</strong> {formatDate(departureTime)}
-        </div>
-        <div>
-          <strong>Origin:</strong> {origin}
-        </div>
-        <div>
-          <strong>Destination:</strong> {destination}
-        </div>
+          <div className='header-container'>
+            <div>{flight.airline}</div>
+            <div className='flight-number'>{flight.flightNumber}</div>
+            <div className={`status-text ${flightStatus[flight.status]}`}>
+              {flight.status}
+            </div>
+          </div>
+          <div className='details-container'>
+            <div>
+              <strong>Departure Time:</strong>{' '}
+              {formatDate(flight.departureTime)}
+            </div>
+            <div>
+              <strong>Origin:</strong> {flight.origin}
+            </div>
+            <div>
+              <strong>Destination:</strong> {flight.destination}
+            </div>
 
-        <button className='back-button' onClick={() => navigate(-1)}>
-          Back
-        </button>
-      </div>
-    </div>
+            <button className='back-button' onClick={() => navigate(-1)}>
+              Back
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
