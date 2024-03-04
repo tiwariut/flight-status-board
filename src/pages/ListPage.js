@@ -8,10 +8,12 @@ import config from '../config/config';
 
 const { fetchDataIntervalDuration } = config;
 
+import Loader from '../components/common/Loader';
 import List from '../components/list/List';
 
 const ListPage = () => {
   const [flights, setFlights] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ const ListPage = () => {
       });
 
       setFlights(flightList);
+      setIsLoading(false);
     };
 
     fetchData();
@@ -41,6 +44,8 @@ const ListPage = () => {
   const navigateToDetailsPage = (id) => {
     navigate(`/details/${id}`);
   };
+
+  if (isLoading) return <Loader />;
 
   if (!flights.length) return null;
 

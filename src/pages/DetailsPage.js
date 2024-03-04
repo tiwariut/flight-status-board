@@ -6,12 +6,15 @@ import { formatDate } from '../utils/helper';
 import config from '../config/config';
 import { flightStatus } from '../utils/constants';
 
+import Loader from '../components/common/Loader';
+
 import '../styles/details-page.css';
 
 const { fetchDataIntervalDuration } = config;
 
 const DetailsPage = () => {
   const [flight, setFlight] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,6 +24,7 @@ const DetailsPage = () => {
       const flightDetails = await fetchFlightDetails(id);
 
       setFlight(flightDetails);
+      setIsLoading(false);
     };
 
     fetchData();
@@ -29,6 +33,8 @@ const DetailsPage = () => {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  if (isLoading) return <Loader />;
 
   if (!flight) return null;
 
